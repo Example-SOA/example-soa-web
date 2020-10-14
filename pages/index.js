@@ -1,30 +1,35 @@
-const Index = () => (<div>
-  <table>
-    <tr>
-      <th>Number</th>
-      <th>Name</th>
-      <th>Manage</th>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Pikachu</td>
-      <td>
-        <button>Edit</button>
-        <button>Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Snorlax</td>
-      <td>
-        <button>Edit</button>
-        <button>Delete</button>
-      </td>
-    </tr>
-  </table>
+import { useState, useEffect } from "react"
 
-  <div>
-    <button>Add</button>
-  </div>
-</div>)
+const Index = () => {
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
+      .then(res => res.json())
+      .then(res => {
+        setItems(res)
+      })
+      .catch(err => console.error(err))
+  }, [])
+
+  return (
+    <div>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+        </tr>
+        {
+          items.map(item => (
+            <tr>
+              <td>{item.id}</td>
+              <td>{item.title}</td>
+            </tr>
+          ))
+        }
+      </table>
+    </div>
+  )
+}
+
 export default Index
