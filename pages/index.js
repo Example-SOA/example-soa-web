@@ -4,7 +4,7 @@ const Index = () => {
   const [items, setItems] = useState([])
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}`)
       .then(res => res.json())
       .then(res => {
         setItems(res)
